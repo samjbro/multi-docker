@@ -1,0 +1,59 @@
+version: '3'
+services:
+  postgres:
+    image: 'postgres:latest'
+  redis:
+    image: 'redis:latest'
+  nginx-vue:
+    restart: always
+    build:
+      context: './nginx-vue'
+      dockerfile: Dockerfile.dev
+    ports:
+      - 8080:80
+  nginx-react:
+    restart: always
+    build:
+      context: './nginx-react'
+      dockerfile: Dockerfile.dev
+    ports:
+      - 8081:80
+  api-express:
+    build:
+      context: './api-express'
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - ./api-express:/app
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - PGUSER=postgres
+      - PGHOST=postgres
+      - PGDATABASE=postgres
+      - PGPASSWORD=postgres_password
+      - PGPORT=5432
+  worker:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./worker
+    volumes:
+      - /app/node_modules
+      - ./worker:/app
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+  client-vue:
+    build:
+      context: './client-vue'
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - ./client-vue:/app
+  client-react:
+    build:
+      context: './client-react'
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      - ./client-react:/app

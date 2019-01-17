@@ -1,0 +1,25 @@
+sudo: required
+services:
+  - docker
+before_install:
+  - docker vuild -t samjbro/client-react-test -f ./client-react/Dockerfile.dev ./client-react
+
+script:
+  - docker run samjbro/client-react-test npm test -- --coverage
+
+after_success:
+  - docker build -t samjbro/multi-client-react ./client-react
+  - docker build -t samjbro/multi-client-vue ./client-vue
+  - docker build -t samjbro/multi-nginx-react ./nginx-react
+  - docker build -t samjbro/multi-nginx-vue ./nginx-vue
+  - docker build -t samjbro/multi-api-express ./api-express
+  - docker build -t samjbro/multi-worker ./worker
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to docker hub
+  - docker push samjbro/multi-client-react 
+  - docker push samjbro/multi-client-vue 
+  - docker push samjbro/multi-nginx-react 
+  - docker push samjbro/multi-nginx-vue 
+  - docker push samjbro/multi-api-express
+  - docker push samjbro/multi-worker
