@@ -5,29 +5,34 @@
       "name": "client-vue",
       "image": "samjbro/multi-client-vue",
       "hostname": "client-vue",
-      "essential": false
+      "essential": false,
+      "memory": 128
     },
     {
       "name": "client-react",
       "image": "samjbro/multi-client-react",
       "hostname": "client-react",
-      "essential": false
+      "essential": false,
+      "memory": 128
     },
     {
       "name": "api-express",
       "image": "samjbro/multi-api-express",
       "hostname": "api-express",
-      "essential": false
+      "essential": false,
+      "memory": 128
     },
     {
       "name": "worker",
       "image": "samjbro/multi-worker",
-      "essential": false
+      "essential": false,
+      "memory": 128
     },
     {
       "name": "nginx-vue",
       "image": "samjbro/multi-nginx-vue",
       "essential": true,
+      "memory": 128,
       "portMappings": [
         {
           "hostPort": 80,
@@ -40,6 +45,7 @@
       "name": "nginx-react",
       "image": "samjbro/multi-nginx-react",
       "essential": true,
+      "memory": 128,
       "portMappings": [
         {
           "hostPort": 81,
