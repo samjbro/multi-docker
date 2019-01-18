@@ -1,22 +1,22 @@
 const path = require('path')
-const webpack = require('webpack')
-const HTMLPlugin = require('html-webpack-plugin')
+const rootPath = require('app-root-path').path
 const { VueLoaderPlugin } = require('vue-loader')
+const HTMLPlugin = require('html-webpack-plugin')
+
+const resolve = file => path.resolve(rootPath, file)
 
 module.exports = {
-  mode: 'development',
-  entry: [
-    'webpack-hot-middleware/client',
-    path.resolve(__dirname, './src/index.js')
-  ],
+  entry: resolve('src/index.js'),
   output: {
+    filename: '[name].bundle.js',
+    path: resolve('dist'),
     publicPath: "http://localhost:8080/"
   },
   resolve: {
     extensions: ['.js', '.vue'],
     alias: {
-      '@': path.resolve(__dirname, './src'),
-      '#': path.resolve(__dirname, './assets/scss')
+      '@': resolve('src'),
+      '#': resolve('assets/scss')
     }
   },
   module: {
@@ -32,12 +32,11 @@ module.exports = {
     ]
   },
   plugins: [
+    new VueLoaderPlugin(),
     new HTMLPlugin({
       filename: 'index.html',
-      template: 'index.template.html',
+      template: 'build/index.template.html',
       inject: true
     }),
-    new webpack.HotModuleReplacementPlugin(),
-    new VueLoaderPlugin()
   ]
 }

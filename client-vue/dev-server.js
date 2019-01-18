@@ -2,7 +2,7 @@ const express = require('express')
 
 const app = express()
 
-const webpackConfig = require('./webpack.config.js')
+const webpackConfig = require('./build/webpack.dev.config.js')
 
 const compiler = require('webpack')(webpackConfig)
 

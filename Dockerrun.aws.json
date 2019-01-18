@@ -1,0 +1,52 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "client-vue",
+      "image": "samjbro/multi-client-vue",
+      "hostname": "client-vue",
+      "essential": false
+    },
+    {
+      "name": "client-react",
+      "image": "samjbro/multi-client-react",
+      "hostname": "client-react",
+      "essential": false
+    },
+    {
+      "name": "api-express",
+      "image": "samjbro/multi-api-express",
+      "hostname": "api-express",
+      "essential": false
+    },
+    {
+      "name": "worker",
+      "image": "samjbro/multi-worker",
+      "essential": false
+    },
+    {
+      "name": "nginx-vue",
+      "image": "samjbro/multi-nginx-vue",
+      "essential": true,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+      "links": ["client-vue", "api-express"]
+    },
+    {
+      "name": "nginx-react",
+      "image": "samjbro/multi-nginx-react",
+      "essential": true,
+      "portMappings": [
+        {
+          "hostPort": 81,
+          "containerPort": 80
+        }
+      ],
+      "links": ["client-react", "api-express"]
+    }
+  ]
+}
