@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <h1>Welcome to Vue!!!!</h1>
+    <h1>Welcome to Vue Again</h1>
     <div class="app__links">
       <router-link to="/">Home</router-link>
       <router-link to="/otherpage">Other Page</router-link>
