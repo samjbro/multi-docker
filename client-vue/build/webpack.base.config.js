@@ -10,7 +10,6 @@ module.exports = {
   output: {
     filename: '[name].bundle.js',
     path: resolve('dist'),
-    publicPath: "http://localhost:8080/"
   },
   resolve: {
     extensions: ['.js', '.vue'],

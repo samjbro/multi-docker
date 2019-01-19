@@ -8,6 +8,9 @@ module.exports = merge(base, {
     'webpack-hot-middleware/client',
     base.entry
   ],
+  output: {
+    publicPath: "http://localhost:8080/"
+  },
   devtool: 'inline-source-map',
   plugins: [
     new webpack.DefinePlugin({
